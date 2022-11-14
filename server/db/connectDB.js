@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema 
 
-const userSchema = new Schema({
-    intensity: Number,
-    likelihood: Number,
-    relevance: Number,
-    year: Number,
-    country: String,
-    topics: String,
-    region: String,
-    city:String
+const username = encodeURIComponent('Newton')
+const password = encodeURIComponent('NS@jan2022')
+const dbName = 'ChartDB';
+
+const url = `mongodb+srv://${username}:${password}@cluster0.wpsflje.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+
+const optionalParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}
+
+mongoose.connect(url,optionalParams)
+.then(()=>{
+    console.log("data server connected to DB");
 })
-
-const User = mongoose.model('UserData',userSchema);
-module.exports = User;
+.catch((e)=>{
+    console.log(`Error Occured : ${e.message}`);
+})
